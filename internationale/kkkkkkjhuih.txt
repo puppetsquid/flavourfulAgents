@@ -1,0 +1,4 @@
+manualhack fix
+
+add load for serverdefs
+
