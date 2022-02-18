@@ -60,8 +60,12 @@ local function triggerCamBlocker( script, sim, selectedUnit, self )
 	
    local unitID =  script:waitFor( { uiEvent = level.EV_UNIT_SELECTED,
         fn = function( sim, unitID )
-			toggleCameraSight ( sim, sim:getUnit(unitID):hasTrait("invisToCams") )
-            return sim:getUnit(unitID):isValid()
+			if sim:getUnit(unitID) then
+				toggleCameraSight ( sim, sim:getUnit(unitID):hasTrait("invisToCams") )
+				return sim:getUnit(unitID):isValid()
+			else
+				return false
+			end
         end } )
 		refreshCams (sim)
 		sim:getLevelScript():addHook( "BLOCKCAMERAS_DRACO", triggerCamBlocker, nil, selectedUnit, self )
